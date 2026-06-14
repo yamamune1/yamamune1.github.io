@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>酒蔵めぐり｜全国の酒蔵を地図で探して、旅の記録をスタンプ帳に</title>
+<meta name="description" content="日本全国の酒蔵を地図で探して、訪問記録をスタンプ帳に残せる無料アプリ「酒蔵めぐり」。営業情報・蔵開きイベント通知・経験値やバッジで、日本酒の旅をもっと楽しく。" />
+
+<!-- OGP（SNS・LLMでの引用時に効く） -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="酒蔵めぐり｜酒蔵の数だけ、旅がある。" />
+<meta property="og:description" content="全国の酒蔵を地図で探して、訪問記録をスタンプ帳に。営業情報・イベント通知・経験値で日本酒の旅をもっと楽しく。" />
+<meta property="og:image" content="./icon.png" />
+<meta name="theme-color" content="#3B3566" />
+
+<!-- 構造化データ（SEO/GEO/LLMO：アプリとして正しく認識させる） -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "酒蔵めぐり",
+  "operatingSystem": "iOS, Android",
+  "applicationCategory": "TravelApplication",
+  "description": "全国の酒蔵を地図で探して、訪問記録をスタンプ帳に残せるアプリ。営業情報・蔵開きイベント通知・経験値やバッジ機能つき。",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+}
+</script>
+
+<style>
+  :root {
+    --indigo: #3B3566;
+    --indigo-dark: #2a2649;
+    --cream: #fdf6ec;
+    --warm: #f5f0eb;
+    --accent: #c0883f;
+    --text: #2c2a35;
+    --muted: #6b6878;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
+                 "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+    color: var(--text);
+    background: var(--cream);
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  /* ヘッダー */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(253, 246, 236, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(59, 53, 102, 0.08);
+  }
+  .nav { display: flex; align-items: center; gap: 12px; height: 64px; }
+  .nav img { width: 36px; height: 36px; border-radius: 9px; }
+  .nav .name { font-weight: 700; font-size: 18px; color: var(--indigo); }
+  .nav .spacer { flex: 1; }
+  .nav a.navcta {
+    font-size: 14px; font-weight: 700; color: #fff; background: var(--indigo);
+    padding: 8px 16px; border-radius: 999px; text-decoration: none;
+  }
+
+  /* ヒーロー */
+  .hero {
+    background: linear-gradient(160deg, var(--indigo) 0%, var(--indigo-dark) 100%);
+    color: #fff; text-align: center; padding: 72px 0 80px;
+  }
+  .hero img.appicon {
+    width: 96px; height: 96px; border-radius: 22px; margin-bottom: 24px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+  }
+  .hero h1 { font-size: 38px; line-height: 1.4; letter-spacing: 0.02em; margin-bottom: 16px; }
+  .hero p.sub { font-size: 17px; color: #d9d5ea; max-width: 600px; margin: 0 auto 36px; }
+  .badges { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #000; color: #fff; text-decoration: none;
+    padding: 12px 22px; border-radius: 12px; font-weight: 600;
+    transition: transform .15s ease, opacity .15s ease;
+  }
+  .badge:hover { transform: translateY(-2px); }
+  .badge small { display: block; font-size: 11px; font-weight: 400; opacity: .8; }
+  .badge .big { font-size: 17px; line-height: 1.1; }
+  .badge svg { width: 24px; height: 24px; fill: #fff; }
+
+  /* 特長 */
+  section.features { padding: 80px 0; }
+  section.features h2 {
+    text-align: center; font-size: 28px; color: var(--indigo); margin-bottom: 8px;
+  }
+  section.features .lead { text-align: center; color: var(--muted); margin-bottom: 48px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card {
+    background: #fff; border: 1px solid rgba(59,53,102,0.08);
+    border-radius: 16px; padding: 28px 24px;
+    box-shadow: 0 4px 16px rgba(59,53,102,0.04);
+  }
+  .card .ico { font-size: 34px; margin-bottom: 14px; }
+  .card h3 { font-size: 18px; color: var(--indigo); margin-bottom: 10px; }
+  .card p { font-size: 14.5px; color: var(--muted); }
+
+  /* CTA帯 */
+  .cta {
+    background: var(--warm); text-align: center; padding: 64px 0;
+    border-top: 1px solid rgba(59,53,102,0.06);
+  }
+  .cta h2 { font-size: 24px; color: var(--indigo); margin-bottom: 8px; }
+  .cta p { color: var(--muted); margin-bottom: 28px; }
+
+  /* アプリ画面（スクショ） */
+  .shots-section { padding: 72px 0; background: var(--warm); border-top: 1px solid rgba(59,53,102,0.06); }
+  .shots-section h2 { text-align: center; font-size: 28px; color: var(--indigo); margin-bottom: 8px; }
+  .shots-section .lead { text-align: center; color: var(--muted); margin-bottom: 40px; }
+  .shots-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; }
+  .shots-track {
+    display: flex; gap: 20px; width: max-content; margin: 0 auto;
+    padding: 8px 24px 26px;
+  }
+  .shots-track .shot { flex: 0 0 auto; width: 218px; scroll-snap-align: center; text-align: center; }
+  .shots-track .shot img {
+    width: 100%; border-radius: 20px; border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 10px 30px rgba(59,53,102,0.16); display: block;
+  }
+  .shots-track .shot figcaption { margin-top: 12px; font-size: 13.5px; color: var(--indigo); font-weight: 600; }
+
+  /* フッター */
+  footer { background: var(--indigo-dark); color: #cfcbe0; padding: 40px 0; font-size: 13.5px; }
+  footer .frow { display: flex; flex-wrap: wrap; gap: 20px 28px; align-items: center; }
+  footer a { color: #fff; text-decoration: none; opacity: .9; }
+  footer a:hover { text-decoration: underline; }
+  footer .spacer { flex: 1; }
+  footer .copy { opacity: .6; }
+
+  @media (max-width: 760px) {
+    .hero h1 { font-size: 30px; }
+    .grid { grid-template-columns: 1fr; }
+    section.features { padding: 56px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <img src="./icon.png" alt="酒蔵めぐり アイコン" />
+    <span class="name">酒蔵めぐり</span>
+    <span class="spacer"></span>
+    <a class="navcta" href="#download">ダウンロード</a>
+  </div>
+</header>
+
+<!-- ヒーロー -->
+<div class="hero">
+  <div class="wrap">
+    <img class="appicon" src="./icon.png" alt="酒蔵めぐり" />
+    <h1>酒蔵の数だけ、旅がある。</h1>
+    <p class="sub">日本全国の酒蔵を地図で探して、訪問の記録をスタンプ帳に。<br>営業情報・蔵開きイベント通知・経験値で、日本酒の旅をもっと楽しく。</p>
+    <div class="badges" id="download">
+      <!-- App Store（公開URLが確定したら href を差し替え） -->
+      <a class="badge" href="https://apps.apple.com/jp/app/id6763684964" aria-label="App Storeでダウンロード">
+        <svg viewBox="0 0 24 24"><path d="M16.5 1.5c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM20 17.3c-.5 1.2-.8 1.7-1.5 2.7-1 1.5-2.4 3.3-4.1 3.3-1.5 0-1.9-1-3.9-1-2 0-2.5 1-3.9 1-1.7 0-3-1.7-4-3.1C-.2 16.8-.5 11.4 1.7 8.6 3 7 4.7 6.1 6.3 6.1c1.7 0 2.7 1 4.1 1 1.3 0 2.1-1 4.1-1 1.4 0 3 .8 4.1 2.2-3.6 2-3 7.1 1.3 9z"/></svg>
+        <span><small>ダウンロード</small><span class="big">App Store</span></span>
+      </a>
+      <!-- Google Play -->
+      <a class="badge" href="https://play.google.com/store/apps/details?id=com.munetoshi.sakaguraapp" aria-label="Google Playで手に入れよう">
+        <svg viewBox="0 0 24 24"><path d="M3.6 1.9c-.3.3-.5.8-.5 1.4v17.4c0 .6.2 1.1.5 1.4l.1.1L13 12.1v-.2L3.7 1.8l-.1.1zM16.4 15.2L13.4 12.2l-.1-.1 3.1-3.1 3.6 2c1 .6 1 1.5 0 2.1l-3.6 2.1zM13.4 12.1l3 3L5 21.9c-.5.3-1 .3-1.4 0l9.8-9.8zM5 2.1l8.4 9.9-3 3L3.6 2.1c.4-.3.9-.3 1.4 0z"/></svg>
+        <span><small>手に入れよう</small><span class="big">Google Play</span></span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 特長 -->
+<section class="features">
+  <div class="wrap">
+    <h2>「酒蔵めぐり」でできること</h2>
+    <p class="lead">日本酒好きの旅・お出かけのお供に。すべて無料で使えます。</p>
+    <div class="grid">
+      <div class="card">
+        <div class="ico">🗺️</div>
+        <h3>酒蔵マップ</h3>
+        <p>全国の酒蔵を地図に表示。現在地から近い蔵をすぐ発見。都道府県・フリーワード・営業情報・イベントの有無で絞り込み検索も。</p>
+      </div>
+      <div class="card">
+        <div class="ico">📖</div>
+        <h3>スタンプ帳</h3>
+        <p>訪れた酒蔵を写真つきで記録。過去に撮った写真からでも登録でき、訪問日も自動で記録。集めるほど旅の思い出が増えていきます。</p>
+      </div>
+      <div class="card">
+        <div class="ico">🏅</div>
+        <h3>経験値・レベル・バッジ</h3>
+        <p>訪問するたびに経験値を獲得してレベルアップ。遠方や1日複数訪問でボーナスXP。訪問数・都道府県数などの達成バッジも多数。</p>
+      </div>
+      <div class="card">
+        <div class="ico">🕒</div>
+        <h3>営業情報</h3>
+        <p>営業日・定休日・今日の営業状況を確認。試飲（無料/有料）や購入の可否、蔵見学・レストラン併設の有無も掲載しています。</p>
+      </div>
+      <div class="card">
+        <div class="ico">🎌</div>
+        <h3>イベント通知</h3>
+        <p>お気に入りの酒蔵で蔵開きなどのイベントが予定されると通知でお知らせ。お酒に関するイベント情報も一覧で確認できます。</p>
+      </div>
+      <div class="card">
+        <div class="ico">🍶</div>
+        <h3>日本酒の豆知識</h3>
+        <p>作り方・味わい方・保存方法や、薫酒・爽酒・醇酒・熟酒のSSI4分類を掲載。訪問前のマナーガイドで初めての蔵も安心です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- アプリの画面 -->
+<section class="shots-section">
+  <div class="wrap">
+    <h2>アプリの画面</h2>
+    <p class="lead">地図・スタンプ帳・営業情報・記録まで、これひとつで。</p>
+  </div>
+  <div class="shots-scroll">
+    <div class="shots-track">
+      <figure class="shot"><img src="./shot-home.jpg" alt="酒蔵めぐり ホーム画面" loading="lazy" /><figcaption>ホーム</figcaption></figure>
+      <figure class="shot"><img src="./shot-map.jpg" alt="酒蔵マップ" loading="lazy" /><figcaption>酒蔵マップ</figcaption></figure>
+      <figure class="shot"><img src="./shot-stamp.jpg" alt="写真スタンプ帳" loading="lazy" /><figcaption>スタンプ帳</figcaption></figure>
+      <figure class="shot"><img src="./shot-info.jpg" alt="酒蔵の営業情報" loading="lazy" /><figcaption>営業情報</figcaption></figure>
+      <figure class="shot"><img src="./shot-record.jpg" alt="訪問記録と統計" loading="lazy" /><figcaption>訪問記録</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+  <div class="wrap">
+    <h2>さあ、最初の一蔵へ。</h2>
+    <p>全国1,400以上の酒蔵が、あなたの旅を待っています。</p>
+    <div class="badges">
+      <a class="badge" href="https://apps.apple.com/jp/app/id6763684964" aria-label="App Storeでダウンロード">
+        <svg viewBox="0 0 24 24"><path d="M16.5 1.5c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM20 17.3c-.5 1.2-.8 1.7-1.5 2.7-1 1.5-2.4 3.3-4.1 3.3-1.5 0-1.9-1-3.9-1-2 0-2.5 1-3.9 1-1.7 0-3-1.7-4-3.1C-.2 16.8-.5 11.4 1.7 8.6 3 7 4.7 6.1 6.3 6.1c1.7 0 2.7 1 4.1 1 1.3 0 2.1-1 4.1-1 1.4 0 3 .8 4.1 2.2-3.6 2-3 7.1 1.3 9z"/></svg>
+        <span><small>ダウンロード</small><span class="big">App Store</span></span>
+      </a>
+      <a class="badge" href="https://play.google.com/store/apps/details?id=com.munetoshi.sakaguraapp" aria-label="Google Playで手に入れよう">
+        <svg viewBox="0 0 24 24"><path d="M3.6 1.9c-.3.3-.5.8-.5 1.4v17.4c0 .6.2 1.1.5 1.4l.1.1L13 12.1v-.2L3.7 1.8l-.1.1zM16.4 15.2L13.4 12.2l-.1-.1 3.1-3.1 3.6 2c1 .6 1 1.5 0 2.1l-3.6 2.1zM13.4 12.1l3 3L5 21.9c-.5.3-1 .3-1.4 0l9.8-9.8zM5 2.1l8.4 9.9-3 3L3.6 2.1c.4-.3.9-.3 1.4 0z"/></svg>
+        <span><small>手に入れよう</small><span class="big">Google Play</span></span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- フッター -->
+<footer>
+  <div class="wrap frow">
+    <span class="name" style="color:#fff;font-weight:700;">酒蔵めぐり</span>
+    <a href="https://yamamune1.github.io/sakagura-privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>
+    <a href="https://yamamune1.github.io/sakagura-privacy/release-notes.html" target="_blank" rel="noopener">更新履歴</a>
+    <a href="mailto:j0406cake@yahoo.co.jp">お問い合わせ</a>
+    <span class="spacer"></span>
+    <span class="copy">© 2026 酒蔵めぐり</span>
+  </div>
+</footer>
+
+</body>
+</html>
