@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>酒蔵オーナー・酒蔵で働いていらっしゃる皆さまへ｜酒蔵めぐり</title>
+<meta name="description" content="酒蔵めぐりアプリのオーナー登録（無料）で、蔵のページを自分で育てられます。営業情報の発信・イベント告知＋プッシュ通知・メッセージ配信・コメント返信。上位プランでは出し分け配信やアクセス解析も。" />
+
+<!-- OGP -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="酒蔵オーナー・酒蔵で働いていらっしゃる皆さまへ｜酒蔵めぐり" />
+<meta property="og:description" content="オーナー登録（無料）で蔵のページを自分で育てる。営業情報・イベント告知・メッセージ配信・アクセス解析。" />
+<meta property="og:image" content="./icon.png" />
+<meta name="theme-color" content="#3B3566" />
+
+<style>
+  :root {
+    --indigo: #3B3566;
+    --indigo-dark: #2a2649;
+    --cream: #fdf6ec;
+    --warm: #f5f0eb;
+    --accent: #c0883f;
+    --wine: #8B0000;
+    --text: #2c2a35;
+    --muted: #6b6878;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN",
+                 "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+    color: var(--text);
+    background: var(--cream);
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  /* ヘッダー */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(253, 246, 236, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(59, 53, 102, 0.08);
+  }
+  .nav { display: flex; align-items: center; gap: 12px; height: 64px; }
+  .nav img { width: 36px; height: 36px; border-radius: 9px; }
+  .nav .name { font-weight: 700; font-size: 18px; color: var(--indigo); }
+  .nav .spacer { flex: 1; }
+  .nav a.navlink { font-size: 14px; color: var(--indigo); text-decoration: none; font-weight: 600; }
+  .nav a.navcta {
+    font-size: 14px; font-weight: 700; color: #fff; background: var(--indigo);
+    padding: 8px 16px; border-radius: 999px; text-decoration: none;
+  }
+
+  /* ヒーロー */
+  .hero {
+    background: linear-gradient(160deg, var(--indigo) 0%, var(--indigo-dark) 100%);
+    color: #fff; text-align: center; padding: 64px 0 72px;
+  }
+  .hero .tag {
+    display: inline-block; background: rgba(255,255,255,0.15); border-radius: 999px;
+    padding: 6px 18px; font-size: 14px; font-weight: 700; margin-bottom: 18px;
+  }
+  .hero h1 { font-size: 34px; line-height: 1.4; letter-spacing: 0.02em; margin-bottom: 16px; }
+  .hero p.sub { font-size: 16px; color: #d9d5ea; max-width: 640px; margin: 0 auto; }
+
+  /* セクション共通 */
+  section { padding: 72px 0; }
+  section h2 { text-align: center; font-size: 28px; color: var(--indigo); margin-bottom: 8px; }
+  section .lead { text-align: center; color: var(--muted); margin-bottom: 44px; }
+
+  /* 特長カード */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card {
+    background: #fff; border: 1px solid rgba(59,53,102,0.08);
+    border-radius: 16px; padding: 26px 22px;
+    box-shadow: 0 4px 16px rgba(59,53,102,0.04);
+  }
+  .card .ico { font-size: 32px; margin-bottom: 12px; }
+  .card h3 { font-size: 17px; color: var(--indigo); margin-bottom: 8px; }
+  .card p { font-size: 14px; color: var(--muted); }
+  .freebadge {
+    display: inline-block; background: #e8f5e9; color: #2e7d32; font-size: 12px;
+    font-weight: 700; border-radius: 999px; padding: 2px 10px; margin-left: 8px; vertical-align: middle;
+  }
+
+  /* プラン比較表 */
+  .plans { background: var(--warm); border-top: 1px solid rgba(59,53,102,0.06); }
+  .tblwrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table.cmp { width: 100%; min-width: 660px; border-collapse: collapse; background: #fff; font-size: 14px; }
+  .cmp th, .cmp td { border: 1px solid #e5e0d5; padding: 10px 10px; text-align: center; vertical-align: middle; }
+  .cmp thead th { background: var(--indigo); color: #fff; font-weight: 700; }
+  .cmp thead th .price { display: block; font-size: 12px; font-weight: 500; opacity: .85; }
+  .cmp thead th.rich { background: var(--wine); }
+  .cmp td.feat { text-align: left; font-weight: 600; color: var(--indigo); background: #fbf8f2; }
+  .cmp td.feat small { display: block; font-weight: 400; color: #8a8073; font-size: 12px; }
+  .cmp tr.grp td { background: #efe8da; color: var(--wine); font-weight: 700; text-align: left; font-size: 13px; }
+  .cmp td.rich { background: #fff4ec; }
+  .cmp .o { color: #1b7a3d; font-weight: 800; font-size: 17px; }
+  .cmp .x { color: #c94b3b; font-weight: 700; font-size: 15px; }
+  .cmp .t { color: #b26a00; font-weight: 800; font-size: 15px; }
+  .cmp .val { font-size: 12.5px; font-weight: 700; color: #444; }
+  .legend { text-align: center; font-size: 13px; color: var(--muted); margin-top: 14px; }
+  .note { font-size: 12.5px; color: #8a8073; line-height: 1.7; margin-top: 12px; }
+
+  /* 登録ステップ */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .step { background: #fff; border: 1px solid rgba(59,53,102,0.08); border-radius: 14px; padding: 22px 16px; text-align: center; }
+  .step .num {
+    width: 34px; height: 34px; border-radius: 50%; background: var(--indigo); color: #fff;
+    font-weight: 800; line-height: 34px; margin: 0 auto 10px; font-size: 16px;
+  }
+  .step h3 { font-size: 15.5px; color: var(--indigo); margin-bottom: 6px; }
+  .step p { font-size: 13px; color: var(--muted); }
+
+  /* チラシDL */
+  .flyer {
+    background: #fff; border: 2px solid var(--indigo); border-radius: 16px;
+    padding: 28px 24px; text-align: center; max-width: 620px; margin: 0 auto;
+  }
+  .flyer h3 { font-size: 19px; color: var(--indigo); margin-bottom: 8px; }
+  .flyer p { font-size: 14px; color: var(--muted); margin-bottom: 18px; }
+  .flyer a.dl {
+    display: inline-block; background: var(--indigo); color: #fff; text-decoration: none;
+    font-weight: 700; font-size: 15px; padding: 12px 28px; border-radius: 999px;
+  }
+  .flyer a.dl:hover { opacity: .9; }
+
+  /* CTA */
+  .cta { background: var(--warm); text-align: center; padding: 64px 0; border-top: 1px solid rgba(59,53,102,0.06); }
+  .cta h2 { font-size: 24px; color: var(--indigo); margin-bottom: 8px; }
+  .cta p { color: var(--muted); margin-bottom: 28px; }
+  .badges { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #000; color: #fff; text-decoration: none;
+    padding: 12px 22px; border-radius: 12px; font-weight: 600;
+    transition: transform .15s ease, opacity .15s ease;
+  }
+  .badge:hover { transform: translateY(-2px); }
+  .badge small { display: block; font-size: 11px; font-weight: 400; opacity: .8; }
+  .badge .big { font-size: 17px; line-height: 1.1; }
+  .badge svg { width: 24px; height: 24px; fill: #fff; }
+
+  /* QRコード（PCで見ている人向け。スマホでは非表示＝ストアバッジをタップしてもらう） */
+  .qrrow { display: flex; gap: 20px; justify-content: center; margin-top: 24px; }
+  .qritem {
+    background: #fff; border-radius: 14px; padding: 12px 16px 8px; text-align: center;
+    box-shadow: 0 4px 14px rgba(59,53,102,0.15); border: 1px solid rgba(59,53,102,0.08);
+  }
+  .qritem img { width: 116px; height: 116px; display: block; }
+  .qritem .qrlabel { font-size: 12px; font-weight: 700; color: #2c2a35; margin-top: 4px; }
+  .qrnote { text-align: center; font-size: 12.5px; margin-top: 10px; color: var(--muted); }
+  @media (max-width: 760px) { .qrrow, .qrnote { display: none; } }
+
+  /* フッター */
+  footer { background: var(--indigo-dark); color: #cfcbe0; padding: 40px 0; font-size: 13.5px; }
+  footer .frow { display: flex; flex-wrap: wrap; gap: 20px 28px; align-items: center; }
+  footer a { color: #fff; text-decoration: none; opacity: .9; }
+  footer a:hover { text-decoration: underline; }
+  footer .spacer { flex: 1; }
+  footer .copy { opacity: .6; }
+
+  @media (max-width: 760px) {
+    .hero h1 { font-size: 26px; }
+    .grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: repeat(2, 1fr); }
+    section { padding: 52px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <img src="./icon.png" alt="酒蔵めぐり アイコン" />
+    <span class="name">酒蔵めぐり</span>
+    <span class="spacer"></span>
+    <a class="navlink" href="./index.html">アプリ紹介</a>
+    <a class="navcta" href="#start">無料ではじめる</a>
+  </div>
+</header>
+
+<!-- ヒーロー -->
+<div class="hero">
+  <div class="wrap">
+    <span class="tag">🏭 酒蔵オーナー・酒蔵で働いていらっしゃる皆さまへ｜登録無料</span>
+    <h1>あなたの蔵のファンに、直接届く。</h1>
+    <p class="sub">「酒蔵めぐり」は全国1,300以上の酒蔵を掲載した、日本酒好きのための訪問記録アプリです。<br>オーナー登録（無料）をすると、自分の蔵のページを自分で育てられるようになります。</p>
+  </div>
+</div>
+
+<!-- 無料でできること -->
+<section>
+  <div class="wrap">
+    <h2>オーナー登録でできること<span class="freebadge">すべて無料</span></h2>
+    <p class="lead">お客様の来訪を、アプリがあと押しします。</p>
+    <div class="grid">
+      <div class="card">
+        <div class="ico">🏯</div>
+        <h3>酒蔵情報の編集</h3>
+        <p>住所・銘柄・公式サイト・紹介文など、蔵のページをいつでも自分で更新できます。</p>
+      </div>
+      <div class="card">
+        <div class="ico">🕒</div>
+        <h3>営業情報の発信</h3>
+        <p>週間スケジュール・臨時休業・例外日を登録。「今日は開いてる？」に正確に答えられるページに。</p>
+      </div>
+      <div class="card">
+        <div class="ico">🎌</div>
+        <h3>イベント告知＋プッシュ通知</h3>
+        <p>蔵開きや試飲会を登録すると、蔵を「お気に入り」「行ってみたい」にした方へ即プッシュ通知が届きます。</p>
+      </div>
+      <div class="card">
+        <div class="ico">📣</div>
+        <h3>メッセージ配信</h3>
+        <p>新酒・限定酒の案内を、お気に入り・行ってみたい・訪問済みの方へ直接配信（プッシュ通知つき）。訪問歴・地域・好みの味などでの絞り込みも。</p>
+      </div>
+      <div class="card">
+        <div class="ico">💬</div>
+        <h3>来訪者のコメントに返信</h3>
+        <p>訪れた方の感想コメントに「蔵の担当者」として返信。酒蔵Q&Aでは蔵元バッジつきで質問に答えられます。</p>
+      </div>
+      <div class="card">
+        <div class="ico">👥</div>
+        <h3>ファン数の確認ほか管理機能</h3>
+        <p>お気に入り・行ってみたい・訪問済みの人数をいつでも確認。複数担当者での共同管理にも対応しています。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- プラン比較 -->
+<section class="plans">
+  <div class="wrap">
+    <h2>プラン比較</h2>
+    <p class="lead">まずは無料でスタート。もっと集客に活かしたくなったら、上位プランへ。</p>
+    <div class="tblwrap">
+      <table class="cmp">
+        <colgroup><col style="width:40%"><col style="width:20%"><col style="width:20%"><col style="width:20%"></colgroup>
+        <thead>
+          <tr>
+            <th style="text-align:left;">できること</th>
+            <th>課金なし<span class="price">¥0</span></th>
+            <th>プレミアム<span class="price">¥300 / 月</span></th>
+            <th class="rich">酒蔵リッチプラン<span class="price">¥980 / 月</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="grp"><td colspan="4">基本機能（無料でできること）</td></tr>
+          <tr><td class="feat">酒蔵情報の編集・営業情報の発信</td><td><span class="o">○</span></td><td><span class="o">○</span></td><td class="rich"><span class="o">○</span></td></tr>
+          <tr><td class="feat">イベント告知＋プッシュ通知<small>お気に入り・行ってみたいの方へ</small></td><td><span class="o">○</span></td><td><span class="o">○</span></td><td class="rich"><span class="o">○</span></td></tr>
+          <tr><td class="feat">来訪コメントへの返信・ファン数の確認</td><td><span class="o">○</span></td><td><span class="o">○</span></td><td class="rich"><span class="o">○</span></td></tr>
+          <tr class="grp"><td colspan="4">📣 メッセージ配信</td></tr>
+          <tr><td class="feat">つながっている方へ配信<small>お気に入り・行ってみたい・訪問済みの方</small></td><td><span class="o">○</span></td><td><span class="o">○</span></td><td class="rich"><span class="o">○</span></td></tr>
+          <tr><td class="feat">「すべてのユーザー」へ配信<small>まだ接点のない方にも届けられる</small></td><td><span class="t">△</span></td><td><span class="t">△</span></td><td class="rich"><span class="o">○</span><span class="val" style="display:block;">月2回</span></td></tr>
+          <tr><td class="feat">絞り込み配信<small>訪問歴・レベル・地域・好みの味など</small></td><td><span class="o">○</span></td><td><span class="o">○</span></td><td class="rich"><span class="o">○</span></td></tr>
+          <tr><td class="feat">メッセージ配信の通数</td><td><span class="val">週1・月4</span></td><td><span class="val">週1・月4</span></td><td class="rich"><span class="val">月10</span></td></tr>
+          <tr><td class="feat">名前の差し込み・訪問有無で文面を出し分け</td><td><span class="x">×</span></td><td><span class="o">○</span></td><td class="rich"><span class="o">○</span></td></tr>
+          <tr><td class="feat">層ごとに文面を出し分けて一斉配信<small>最大4通・重複した方には1通だけ</small></td><td><span class="x">×</span></td><td><span class="x">×</span></td><td class="rich"><span class="o">○</span></td></tr>
+          <tr><td class="feat">最近ページを見た方へ配信</td><td><span class="x">×</span></td><td><span class="x">×</span></td><td class="rich"><span class="o">○</span></td></tr>
+          <tr class="grp"><td colspan="4">📊 分析・集客ツール</td></tr>
+          <tr><td class="feat">アクセス解析<small>閲覧数・ユニーク人数の推移</small></td><td><span class="x">×</span></td><td><span class="o">○</span></td><td class="rich"><span class="o">○</span></td></tr>
+          <tr><td class="feat">見た人の属性内訳<small>性別・年代・地域</small></td><td><span class="x">×</span></td><td><span class="x">×</span></td><td class="rich"><span class="o">○</span></td></tr>
+          <tr><td class="feat">イベント自動リマインド<small>前日・当日に自動でお知らせ</small></td><td><span class="x">×</span></td><td><span class="x">×</span></td><td class="rich"><span class="o">○</span></td></tr>
+          <tr><td class="feat">蔵ページのリンクボタン<small>公式通販・予約ページなど 最大3つ</small></td><td><span class="x">×</span></td><td><span class="x">×</span></td><td class="rich"><span class="o">○</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="legend">○ できる　／　△ 期間・条件つき　／　× なし</p>
+    <p class="note">
+      ※「すべてのユーザーへ配信」は、サービス開始記念として現在すべての酒蔵で無料開放中（△）。記念期間の終了後は酒蔵リッチプランの機能（月2回まで）になります。<br>
+      ※ プレミアム（¥300/月）はアプリ全体の特典（広告の非表示など）も含みます。酒蔵リッチプランはプレミアムの内容もすべて含みます。プランの申し込み・切り替えはアプリ内からいつでも行えます。
+    </p>
+  </div>
+</section>
+
+<!-- 登録ステップ -->
+<section id="start">
+  <div class="wrap">
+    <h2>登録はかんたん4ステップ</h2>
+    <p class="lead">運営の審査・承認後に管理機能が使えるようになります。</p>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h3>アプリを入手</h3><p>下のボタンから無料でダウンロード</p></div>
+      <div class="step"><div class="num">2</div><h3>アカウント登録</h3><p>メールアドレスで登録（確認メールあり）</p></div>
+      <div class="step"><div class="num">3</div><h3>オーナー申請</h3><p>マイページの「酒蔵オーナー申請」からご自身の蔵を選択</p></div>
+      <div class="step"><div class="num">4</div><h3>承認後スタート</h3><p>審査・承認後、管理機能が使えるようになります</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- チラシDL -->
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="flyer">
+      <h3>📄 印刷用チラシ（PDF）</h3>
+      <p>オーナー登録のご案内とプラン比較をまとめたA4チラシです。<br>蔵の皆さまへの共有・回覧にご利用ください。</p>
+      <a class="dl" href="./sakagura-owner-flyer.pdf" target="_blank" rel="noopener">チラシをダウンロード（PDF・2ページ）</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+  <div class="wrap">
+    <h2>まずは無料のオーナー登録から</h2>
+    <p>アプリをダウンロードして、マイページの「酒蔵オーナー申請」へ。</p>
+    <div class="badges">
+      <a class="badge" href="https://apps.apple.com/jp/app/id6763684964" aria-label="App Storeでダウンロード">
+        <svg viewBox="0 0 24 24"><path d="M16.5 1.5c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.8 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.8-1.4zM20 17.3c-.5 1.2-.8 1.7-1.5 2.7-1 1.5-2.4 3.3-4.1 3.3-1.5 0-1.9-1-3.9-1-2 0-2.5 1-3.9 1-1.7 0-3-1.7-4-3.1C-.2 16.8-.5 11.4 1.7 8.6 3 7 4.7 6.1 6.3 6.1c1.7 0 2.7 1 4.1 1 1.3 0 2.1-1 4.1-1 1.4 0 3 .8 4.1 2.2-3.6 2-3 7.1 1.3 9z"/></svg>
+        <span><small>ダウンロード</small><span class="big">App Store</span></span>
+      </a>
+      <a class="badge" href="https://play.google.com/store/apps/details?id=com.munetoshi.sakaguraapp" aria-label="Google Playで手に入れよう">
+        <svg viewBox="0 0 24 24"><path d="M3.6 1.9c-.3.3-.5.8-.5 1.4v17.4c0 .6.2 1.1.5 1.4l.1.1L13 12.1v-.2L3.7 1.8l-.1.1zM16.4 15.2L13.4 12.2l-.1-.1 3.1-3.1 3.6 2c1 .6 1 1.5 0 2.1l-3.6 2.1zM13.4 12.1l3 3L5 21.9c-.5.3-1 .3-1.4 0l9.8-9.8zM5 2.1l8.4 9.9-3 3L3.6 2.1c.4-.3.9-.3 1.4 0z"/></svg>
+        <span><small>手に入れよう</small><span class="big">Google Play</span></span>
+      </a>
+    </div>
+    <!-- QRコード（PC閲覧者向け） -->
+    <div class="qrrow">
+      <div class="qritem">
+        <img src="./qr-appstore.png" alt="App Store QRコード" loading="lazy" />
+        <div class="qrlabel">App Store<br><span style="font-weight:400;color:#888;">iPhone / iPad</span></div>
+      </div>
+      <div class="qritem">
+        <img src="./qr-googleplay.png" alt="Google Play QRコード" loading="lazy" />
+        <div class="qrlabel">Google Play<br><span style="font-weight:400;color:#888;">Android</span></div>
+      </div>
+    </div>
+    <p class="qrnote">スマホのカメラでQRコードを読み取るとストアが開きます</p>
+  </div>
+</div>
+
+<!-- フッター -->
+<footer>
+  <div class="wrap frow">
+    <span class="name" style="color:#fff;font-weight:700;">酒蔵めぐり</span>
+    <a href="./index.html">アプリ紹介</a>
+    <a href="https://yamamune1.github.io/sakagura-privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>
+    <a href="mailto:j0406cake@yahoo.co.jp">お問い合わせ</a>
+    <span class="spacer"></span>
+    <span class="copy">© 2026 酒蔵めぐり</span>
+  </div>
+</footer>
+
+</body>
+</html>

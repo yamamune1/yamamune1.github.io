@@ -87,6 +87,30 @@
   .badge .big { font-size: 17px; line-height: 1.1; }
   .badge svg { width: 24px; height: 24px; fill: #fff; }
 
+  /* QRコード（PCで見ている人向け。スマホでは非表示＝ストアバッジをタップしてもらう） */
+  .qrrow { display: flex; gap: 20px; justify-content: center; margin-top: 24px; }
+  .qritem {
+    background: #fff; border-radius: 14px; padding: 12px 16px 8px; text-align: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  }
+  .qritem img { width: 116px; height: 116px; display: block; }
+  .qritem .qrlabel { font-size: 12px; font-weight: 700; color: #2c2a35; margin-top: 4px; }
+  .qrnote { text-align: center; font-size: 12.5px; margin-top: 10px; opacity: .75; }
+  @media (max-width: 760px) { .qrrow, .qrnote { display: none; } }
+
+  /* チラシDLボックス */
+  .flyerbox {
+    background: #fff; border: 2px solid var(--indigo); border-radius: 16px;
+    padding: 28px 24px; text-align: center; max-width: 620px; margin: 0 auto;
+  }
+  .flyerbox h3 { font-size: 19px; color: var(--indigo); margin-bottom: 8px; }
+  .flyerbox p { font-size: 14px; color: var(--muted); margin-bottom: 18px; }
+  .flyerbox a.dl {
+    display: inline-block; background: var(--indigo); color: #fff; text-decoration: none;
+    font-weight: 700; font-size: 15px; padding: 12px 28px; border-radius: 999px;
+  }
+  .flyerbox a.dl:hover { opacity: .9; }
+
   /* 特長 */
   section.features { padding: 80px 0; }
   section.features h2 {
@@ -149,6 +173,7 @@
     <img src="./icon.png" alt="酒蔵めぐり アイコン" />
     <span class="name">酒蔵めぐり</span>
     <span class="spacer"></span>
+    <a href="./owner.html" style="font-size:14px;color:var(--indigo);text-decoration:none;font-weight:600;">オーナーの方へ</a>
     <a class="navcta" href="#download">ダウンロード</a>
   </div>
 </header>
@@ -171,6 +196,18 @@
         <span><small>手に入れよう</small><span class="big">Google Play</span></span>
       </a>
     </div>
+    <!-- QRコード（PC閲覧者向け） -->
+    <div class="qrrow">
+      <div class="qritem">
+        <img src="./qr-appstore.png" alt="App Store QRコード" />
+        <div class="qrlabel">App Store<br><span style="font-weight:400;color:#888;">iPhone / iPad</span></div>
+      </div>
+      <div class="qritem">
+        <img src="./qr-googleplay.png" alt="Google Play QRコード" />
+        <div class="qrlabel">Google Play<br><span style="font-weight:400;color:#888;">Android</span></div>
+      </div>
+    </div>
+    <p class="qrnote">スマホのカメラでQRコードを読み取るとストアが開きます</p>
   </div>
 </div>
 
@@ -210,6 +247,63 @@
         <h3>日本酒の豆知識</h3>
         <p>作り方・味わい方・保存方法や、薫酒・爽酒・醇酒・熟酒のSSI4分類を掲載。訪問前のマナーガイドで初めての蔵も安心です。</p>
       </div>
+      <div class="card">
+        <div class="ico">✨</div>
+        <h3>AIルートプランナー</h3>
+        <p>行きたいエリアや目的を伝えると、営業時間・移動時間を考慮した酒蔵めぐりコースをAIが提案。「ここをこうして」と対話での修正もできます。</p>
+      </div>
+      <div class="card">
+        <div class="ico">🧭</div>
+        <h3>オススメ巡るーと</h3>
+        <p>みんなが作った「巡るルート」を地図で見られます。気になるルートは保存して、旅の「しおり」（PDF）にして持ち出すことも。</p>
+      </div>
+      <div class="card">
+        <div class="ico">💬</div>
+        <h3>コメント・酒蔵Q&A</h3>
+        <p>訪れた人の感想コメントを蔵ごとにチェック。「駐車場ある？」「試飲できる？」などの疑問は、行ったことのある先人や蔵元に直接質問できます。</p>
+      </div>
+      <div class="card">
+        <div class="ico">🎯</div>
+        <h3>毎日日本酒クイズ</h3>
+        <p>毎日1問、日本酒の知識が身につくクイズを出題。正解すると経験値がもらえて、楽しみながら日本酒に詳しくなれます。</p>
+      </div>
+      <div class="card">
+        <div class="ico">📊</div>
+        <h3>マイレポート・みんなの分析</h3>
+        <p>あなたの訪問傾向からタイプを診断する「マイレポート」。全国のユーザーの訪問傾向や味の好みがわかる統計「みんなの分析」も。</p>
+      </div>
+      <div class="card">
+        <div class="ico">🏆</div>
+        <h3>ランキング</h3>
+        <p>オススメ数・お気に入り数・訪問回数などの蔵ランキング。次に行く蔵選びの参考に。好みが近いユーザーを探す機能もあります。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 酒蔵オーナー向け導線 -->
+<section style="padding:0 0 72px;">
+  <div class="wrap">
+    <a href="./owner.html" style="display:block;background:linear-gradient(135deg,#6b0f0f,#8B0000);color:#fff;border-radius:16px;padding:28px 28px;text-decoration:none;">
+      <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+        <span style="font-size:36px;">🏭</span>
+        <span style="flex:1;min-width:220px;">
+          <span style="display:block;font-size:19px;font-weight:700;margin-bottom:4px;">酒蔵オーナー・酒蔵で働いていらっしゃる皆さまへ</span>
+          <span style="display:block;font-size:14px;opacity:.9;">オーナー登録（無料）で、蔵のページを自分で育てられます。営業情報の発信・イベント告知・ファンへのメッセージ配信も。</span>
+        </span>
+        <span style="background:#fff;color:#8B0000;font-weight:700;font-size:14px;padding:10px 20px;border-radius:999px;white-space:nowrap;">詳しく見る ›</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- 紙のご案内（チラシPDF） -->
+<section style="padding:0 0 72px;">
+  <div class="wrap">
+    <div class="flyerbox">
+      <h3>📄 紙のご案内（チラシPDF・A4）</h3>
+      <p>アプリ紹介のチラシです。観光案内所・酒販店・飲食店などでの掲示・設置用に、ご自由に印刷してお使いください。</p>
+      <a class="dl" href="./sakagura-flyer.pdf" target="_blank" rel="noopener">チラシをダウンロード（PDF）</a>
     </div>
   </div>
 </section>
@@ -247,6 +341,18 @@
         <span><small>手に入れよう</small><span class="big">Google Play</span></span>
       </a>
     </div>
+    <!-- QRコード（PC閲覧者向け） -->
+    <div class="qrrow">
+      <div class="qritem">
+        <img src="./qr-appstore.png" alt="App Store QRコード" loading="lazy" />
+        <div class="qrlabel">App Store<br><span style="font-weight:400;color:#888;">iPhone / iPad</span></div>
+      </div>
+      <div class="qritem">
+        <img src="./qr-googleplay.png" alt="Google Play QRコード" loading="lazy" />
+        <div class="qrlabel">Google Play<br><span style="font-weight:400;color:#888;">Android</span></div>
+      </div>
+    </div>
+    <p class="qrnote" style="color:var(--muted);">スマホのカメラでQRコードを読み取るとストアが開きます</p>
   </div>
 </div>
 
@@ -254,6 +360,7 @@
 <footer>
   <div class="wrap frow">
     <span class="name" style="color:#fff;font-weight:700;">酒蔵めぐり</span>
+    <a href="./owner.html">酒蔵オーナーの方へ</a>
     <a href="https://yamamune1.github.io/sakagura-privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>
     <a href="https://yamamune1.github.io/sakagura-privacy/release-notes.html" target="_blank" rel="noopener">更新履歴</a>
     <a href="mailto:j0406cake@yahoo.co.jp">お問い合わせ</a>
