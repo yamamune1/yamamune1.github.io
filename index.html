@@ -173,7 +173,7 @@
     <img src="./icon.png" alt="酒蔵めぐり アイコン" />
     <span class="name">酒蔵めぐり</span>
     <span class="spacer"></span>
-    <a href="./owner.html" style="font-size:14px;color:var(--indigo);text-decoration:none;font-weight:600;">オーナーの方へ</a>
+    <a href="./owner.html" style="font-size:14px;color:var(--indigo);text-decoration:none;font-weight:600;">酒蔵スタッフの方へ</a>
     <a class="navcta" href="#download">ダウンロード</a>
   </div>
 </header>
@@ -281,15 +281,15 @@
   </div>
 </section>
 
-<!-- 酒蔵オーナー向け導線 -->
+<!-- 酒蔵スタッフ向け導線 -->
 <section style="padding:0 0 72px;">
   <div class="wrap">
     <a href="./owner.html" style="display:block;background:linear-gradient(135deg,#6b0f0f,#8B0000);color:#fff;border-radius:16px;padding:28px 28px;text-decoration:none;">
       <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
         <span style="font-size:36px;">🏭</span>
         <span style="flex:1;min-width:220px;">
-          <span style="display:block;font-size:19px;font-weight:700;margin-bottom:4px;">酒蔵オーナー・酒蔵で働いていらっしゃる皆さまへ</span>
-          <span style="display:block;font-size:14px;opacity:.9;">オーナー登録（無料）で、蔵のページを自分で育てられます。営業情報の発信・イベント告知・ファンへのメッセージ配信も。</span>
+          <span style="display:block;font-size:19px;font-weight:700;margin-bottom:4px;">酒蔵で働いていらっしゃる皆さまへ</span>
+          <span style="display:block;font-size:14px;opacity:.9;">酒蔵スタッフ登録（無料）で、蔵のページを自分で育てられます。営業情報の発信・イベント告知・ファンへのメッセージ配信も。</span>
         </span>
         <span style="background:#fff;color:#8B0000;font-weight:700;font-size:14px;padding:10px 20px;border-radius:999px;white-space:nowrap;">詳しく見る ›</span>
       </div>
@@ -360,7 +360,7 @@
 <footer>
   <div class="wrap frow">
     <span class="name" style="color:#fff;font-weight:700;">酒蔵めぐり</span>
-    <a href="./owner.html">酒蔵オーナーの方へ</a>
+    <a href="./owner.html">酒蔵スタッフの方へ</a>
     <a href="https://yamamune1.github.io/sakagura-privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>
     <a href="https://yamamune1.github.io/release-notes.html" target="_blank" rel="noopener">更新履歴</a>
     <a href="https://note.com/sakagurameguri" target="_blank" rel="noopener">開発者のnote</a>
@@ -369,6 +369,51 @@
     <span class="copy">© 2026 酒蔵めぐり</span>
   </div>
 </footer>
+
+<!-- ─────────────────────────────────────────────
+     流入計測（2026-09-01・X広告など外部流入の効果測定用）
+     ?utm_source=x&utm_campaign=kw_nihonshu のようなパラメータ付きで来訪すると
+     Cloud Functions の trackLanding が landingStats/{日付} にカウントする。
+     個人情報は一切送らない（件数のみ）。集計＝ node scripts/landing-stats.js
+     ⚠️Androidのストアリンクには referrer を自動付与する（将来アプリ側で
+       Play Install Referrer を読めばインストールまで追える・1.5.0以降の課題）
+─────────────────────────────────────────────── -->
+<script>
+(function () {
+  var EP = 'https://asia-northeast1-sakagura-app.cloudfunctions.net/trackLanding';
+  var p = new URLSearchParams(location.search);
+  var clean = function (v, n) { return (v || '').replace(/[^a-zA-Z0-9_-]/g, '').slice(0, n); };
+  // 初回訪問のパラメータをセッション中は保持（ページ内回遊でも出所を失わない）
+  var src = clean(p.get('utm_source'), 24) || sessionStorage.getItem('lp_src') || '';
+  var camp = clean(p.get('utm_campaign'), 40) || sessionStorage.getItem('lp_camp') || '';
+  try { if (src) sessionStorage.setItem('lp_src', src); if (camp) sessionStorage.setItem('lp_camp', camp); } catch (e) {}
+
+  var beacon = function (params) {
+    var url = EP + '?' + params.join('&');
+    try { if (navigator.sendBeacon) { navigator.sendBeacon(url); return; } } catch (e) {}
+    var img = new Image(); img.src = url; // sendBeacon非対応環境のフォールバック
+  };
+
+  // ページ表示を1回記録
+  var base = ['e=view', 's=' + encodeURIComponent(src || 'direct')];
+  if (camp) base.push('c=' + encodeURIComponent(camp));
+  beacon(base);
+
+  // ストアボタンのクリックを記録＋Androidにはreferrerを付与
+  document.querySelectorAll('a.badge[href]').forEach(function (a) {
+    var isAndroid = a.href.indexOf('play.google.com') >= 0;
+    if (isAndroid && src && a.href.indexOf('referrer=') < 0) {
+      var ref = 'utm_source=' + src + (camp ? '&utm_campaign=' + camp : '') + '&utm_medium=lp';
+      a.href = a.href + '&referrer=' + encodeURIComponent(ref);
+    }
+    a.addEventListener('click', function () {
+      var q = ['e=click', 's=' + encodeURIComponent(src || 'direct'), 'store=' + (isAndroid ? 'android' : 'ios')];
+      if (camp) q.push('c=' + encodeURIComponent(camp));
+      beacon(q);
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
