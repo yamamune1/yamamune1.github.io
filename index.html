@@ -112,6 +112,20 @@
   .flyerbox a.dl:hover { opacity: .9; }
 
   /* 特長 */
+  /* 御酒印帳 公認（2026-11-02） */
+  .goshuin-pill { display:inline-block; margin:-16px 0 32px; padding:8px 18px; border-radius:999px; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.45); color:#fff; font-size:14px; font-weight:700; text-decoration:none; letter-spacing:.02em; }
+  .goshuin-pill:hover { background:rgba(255,255,255,.24); }
+  section.goshuin-section { padding: 56px 0 0; }
+  .goshuin-box { background:#f6f1e7; border:1px solid #e6dcc8; border-left:6px solid #0f2350; border-radius:16px; padding:28px 28px 22px; }
+  .goshuin-kicker { font-size:13px; font-weight:700; color:#0f2350; letter-spacing:.06em; margin-bottom:6px; }
+  .goshuin-box h2 { font-size:22px; line-height:1.5; margin:0 0 12px; color:#1a1a1a; }
+  .goshuin-box p { font-size:15px; line-height:1.8; color:#333; margin:0 0 12px; }
+  .goshuin-box ul { margin:0 0 18px 1.2em; padding:0; font-size:15px; line-height:1.9; color:#333; }
+  .goshuin-links { display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-bottom:10px; }
+  .goshuin-btn { background:#8B0000; color:#fff; font-weight:700; font-size:14px; padding:10px 22px; border-radius:999px; text-decoration:none; }
+  .goshuin-link { color:#0f2350; font-weight:700; font-size:14px; text-decoration:none; }
+  .goshuin-tm { font-size:12px; color:#777; margin:0; }
+  @media (max-width: 640px) { .goshuin-box { padding:22px 18px 16px; } .goshuin-box h2 { font-size:19px; } }
   section.features { padding: 80px 0; }
   section.features h2 {
     text-align: center; font-size: 28px; color: var(--indigo); margin-bottom: 8px;
@@ -184,6 +198,8 @@
     <img class="appicon" src="./icon.png" alt="酒蔵めぐり" />
     <h1>酒蔵の数だけ、旅がある。</h1>
     <p class="sub">日本全国の酒蔵を地図で探して、訪問の記録をスタンプ帳に。<br>営業情報・蔵開きイベント通知・経験値で、日本酒の旅をもっと楽しく。</p>
+    <!-- 御酒印帳 公認（2026-11-02 公開・文言は先方レビュー済みの言い方に揃える） -->
+    <a class="goshuin-pill" href="#goshuin">御酒印帳® 公認の酒蔵MAPアプリ</a>
     <div class="badges" id="download">
       <!-- App Store（公開URLが確定したら href を差し替え） -->
       <a class="badge" href="https://apps.apple.com/jp/app/id6763684964" aria-label="App Storeでダウンロード">
@@ -210,6 +226,27 @@
     <p class="qrnote">スマホのカメラでQRコードを読み取るとストアが開きます</p>
   </div>
 </div>
+
+<!-- 御酒印帳 公認（2026-11-02） -->
+<section id="goshuin" class="goshuin-section">
+  <div class="wrap">
+    <div class="goshuin-box">
+      <div class="goshuin-kicker">2026年11月2日</div>
+      <h2>「酒蔵めぐり」は、御酒印帳® 公認の酒蔵MAPアプリになりました</h2>
+      <p>酒蔵でいただく御酒印を集める「御酒印帳®」（柿本商事株式会社）の公認 酒蔵MAPアプリとして、参加蔵の地図・情報・記録に対応しました。</p>
+      <ul>
+        <li>御酒印帳の参加蔵を、地図と検索の絞り込み「御酒印帳 参加蔵」で探せます</li>
+        <li>参加蔵の一覧を県ごとに見て、御酒印をいただいた蔵にタップ1つで印を付けられます（日付・メモも）</li>
+        <li>いただいた御酒印のページを写真で残せます（ご自身だけが見られます）</li>
+      </ul>
+      <div class="goshuin-links">
+        <a class="goshuin-btn" href="#download">アプリをダウンロード</a>
+        <a class="goshuin-link" href="https://www.goshu-pro.jp/" target="_blank" rel="noopener">御酒印帳® 公式サイト ›</a>
+      </div>
+      <p class="goshuin-tm">御酒印帳® は柿本商事株式会社の登録商標です。</p>
+    </div>
+  </div>
+</section>
 
 <!-- 特長 -->
 <section class="features">
